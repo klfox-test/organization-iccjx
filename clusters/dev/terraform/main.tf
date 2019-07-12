@@ -8,6 +8,10 @@ provider "google" {
   project     = "${var.gcp_project}"
 }
 
+data "google_container_engine_versions" "current_location" {
+  location           = "${var.gcp_zone}"
+}
+
 resource "google_project_service" "cloudresourcemanager-api" {
   project            = "${var.gcp_project}"
   service            = "cloudresourcemanager.googleapis.com"
@@ -54,6 +58,7 @@ resource "google_container_node_pool" "jx-node-pool" {
   zone       = "${var.gcp_zone}"
   cluster    = "${google_container_cluster.jx-cluster.name}"
   node_count = "${var.min_node_count}"
+  version    = "${data.google_container_engine_versions.current_location.latest_master_version}"
 
   node_config {
     preemptible  = "${var.node_preemptible}"
@@ -93,6 +98,7 @@ resource "google_container_cluster" "jx-cluster" {
   remove_default_node_pool = "true"
   logging_service          = "${var.logging_service}"
   monitoring_service       = "${var.monitoring_service}"
+  min_master_version       = "${data.google_container_engine_versions.current_location.latest_master_version}"
 
   resource_labels = {
     created-by   = "${var.created_by}"
