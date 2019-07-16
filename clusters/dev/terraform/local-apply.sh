@@ -6,6 +6,7 @@ echo $KEY
 
 export GOOGLE_CREDENTIALS=`pwd`/${KEY}
 TERRAFORM_DIR=.
-terraform init ${TERRAFORM_DIR}
+
+terraform init -reconfigure ${TERRAFORM_DIR}
 terraform plan -var credentials=${GOOGLE_CREDENTIALS} -var-file=${TERRAFORM_DIR}/terraform.tfvars ${TERRAFORM_DIR}
 terraform apply -auto-approve -var credentials=${GOOGLE_CREDENTIALS} -var-file=${TERRAFORM_DIR}/terraform.tfvars ${TERRAFORM_DIR}

@@ -111,10 +111,10 @@ resource "google_container_cluster" "jx-cluster" {
   }
 }
 
-resource "google_storage_bucket" "lts-bucket" {
-  name     = "${var.cluster_name}-lts"
-  location = "EU"
-}
+# resource "google_storage_bucket" "lts-bucket" {
+#   name     = "${var.cluster_name}-lts"
+#   location = "EU"
+# }
 
 resource "google_service_account" "kaniko-sa" {
   count        = var.enable_kaniko
@@ -146,11 +146,11 @@ resource "google_project_iam_member" "kaniko-sa-storage-object-creator-binding" 
   member = "serviceAccount:${google_service_account.kaniko-sa[0].email}"
 }
 
-resource "google_storage_bucket" "vault-bucket" {
-  count    = var.enable_vault
-  name     = "${var.cluster_name}-vault"
-  location = "EU"
-}
+# resource "google_storage_bucket" "vault-bucket" {
+#   count    = var.enable_vault
+#   name     = "${var.cluster_name}-vault"
+#   location = "EU"
+# }
 
 resource "google_service_account" "vault-sa" {
   count        = var.enable_vault

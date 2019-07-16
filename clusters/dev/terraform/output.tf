@@ -10,13 +10,13 @@ output "cluster_master_version" {
   value = "${google_container_cluster.jx-cluster.master_version}"
 }
 
-output "lts-bucket" {
-  value = "${google_storage_bucket.lts-bucket.name}"
-}
+# output "lts-bucket" {
+#   value = "${google_storage_bucket.lts-bucket.name}"
+# }
 
-output "vault-bucket" {
-  value = "${google_storage_bucket.vault-bucket[0].name}"
-}
+# output "vault-bucket" {
+#   value = "${google_storage_bucket.vault-bucket[0].name}"
+# }
 
 output "vault-sa" {
   value = "${google_service_account.vault-sa[0].account_id}"
